@@ -10,5 +10,6 @@
 }
 
 .information-cards__item {
-    width: calc((100% / 4) - (96px / 4));
+   /* width: calc((100% / 4) - (96px / 4));*/
+
 }
