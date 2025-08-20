@@ -7,9 +7,11 @@
     list-style: none;
     margin: 0;
     padding: 0;
+    justify-content: center;
 }
 
 .information-cards__item {
    /* width: calc((100% / 4) - (96px / 4));*/
 
 }
+
