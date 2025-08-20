@@ -1,0 +1,106 @@
+
+
+ <!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Отчёты</title>
+  <link rel="stylesheet" href="css/style.css">
+   <!-- 📱 Добавляем PWA-манифест -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Для iPhone (иконки и цвет статус-бара) -->
+  <link rel="apple-touch-icon" href="images/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+</head>
+<body>
+
+    <header class="header">
+    <div class="container">
+      <div class="header__content">
+        <a class="header__logo-link" href="advice.html">
+          <img class="header__logo" src="images/logo.png" height="36" width="170"
+            alt="Логотип Семейного бюджета">
+        </a>
+        <button class="header__menu">
+          <span class="header__menu-line"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+<main>
+    <div class="cont">
+  <h1>Сохранённые отчёты</h1>
+  <div id="reportsContainer"></div>
+  <button id="clearReports">Очистить все отчёты</button>
+  <a href="expenses.html">Назад к расходам</a>
+ </div>
+    </main>
+
+   <footer class="footer">
+    <div class="container">
+      <div class="footer__content">
+        <a class="footer__logo-link" href="advice.html">
+          <img class="footer__logo" src="images/logo.png" height="36" width="170"
+            alt="Логотип Семейного бюджета">
+        </a>
+        <ul class="footer__contacts-list">
+          <li class="footer__contacts-item">
+            <span class="footer__contacts-text">Позвонить Ринату</span>
+            <a class="footer__contacts-phone" href="tel:+77056600636">+7 705 660 06 36</a>
+          </li>
+          <li class="footer__contacts-item">
+            <span class="footer__contacts-text">Позвнить Ане</span>
+            <a class="footer__contacts-phone" href="tel:+77006937462">+7 700 693 74 62</a>
+          </li>
+        </ul>
+        <div class="footer__info">
+          <span class="footer__info-text">Семейный бюджет Хасановых</span>
+        </div>
+        <span class="footer__note">Информация от 20.08.2025</span>
+      </div>
+    </div>
+    
+  </footer>
+
+  <script>
+    function loadReports() {
+      const reports = JSON.parse(localStorage.getItem('expenseReports') || '[]');
+      const container = document.getElementById('reportsContainer');
+      container.innerHTML = '';
+
+      if (reports.length === 0) {
+        container.innerHTML = '<p>Отчётов пока нет.</p>';
+        return;
+      }
+
+      reports.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      reports.forEach(r => {
+        const block = document.createElement('div');
+        block.className = 'report-block';
+        block.innerHTML = `<h3>${r.label}</h3><div class="table-wrapper">${r.table}</div>`;
+        container.appendChild(block);
+      });
+    }
+
+    document.getElementById('clearReports').addEventListener('click', () => {
+      if (confirm('Удалить все отчёты?')) {
+        localStorage.removeItem('expenseReports');
+        loadReports();
+      }
+    });
+
+    loadReports();
+     // 📱 Регистрация Service Worker
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+      .then(() => console.log('✅ Service Worker зарегистрирован'))
+      .catch(err => console.log('❌ Ошибка регистрации Service Worker:', err));
+  }
+  </script>
+ 
+</body>
+</html>
