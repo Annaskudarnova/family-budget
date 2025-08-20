@@ -7,6 +7,7 @@
   align-items: center;
   display: flex;
   position: relative;
+  gap: 20px;
 }
 
 .footer__logo-link {
@@ -42,7 +43,7 @@
 
 .footer__contacts-phone {
   color: #1E222E;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 600;
   line-height: 28px;
   text-decoration: none;
